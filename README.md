@@ -15,7 +15,7 @@ vision–language agent to **diagnose and recover from its own tool-use failures
 instead of only imitating successful traces.
 
 <p align="center">
-  <a href="https://showlab.github.io/ReGRPO/">🌐 Project Page</a> &nbsp;•&nbsp;
+  <a href="https://binjiezhang.github.io/ReGRPO/">🌐 Project Page</a> &nbsp;•&nbsp;
   <a href="#">📄 arXiv (coming soon)</a> &nbsp;•&nbsp;
   <a href="https://github.com/showlab/ReGRPO">💻 Code</a> &nbsp;•&nbsp;
   <a href="#data">🗂️ Data (coming soon)</a>
@@ -94,7 +94,7 @@ ReGRPO/
 │   ├── configs/       # data_rot.yaml, sft_*.yaml, regrpo_*.yaml
 │   └── scripts/       # run_build_rot.sh, run_sft.sh, run_regrpo.sh, run_inference.sh
 ├── samples/           # tiny validated fixtures so the smokes run with no data/API key
-├── docs/              # project page (enable: Settings → Pages → Deploy from a branch → main, /docs)
+├── docs/              # project page source (published at https://binjiezhang.github.io/ReGRPO/)
 ├── requirements.txt
 ├── LICENSE
 └── README.md
