@@ -94,7 +94,7 @@ ReGRPO/
 │   ├── configs/       # data_rot.yaml, sft_*.yaml, regrpo_*.yaml
 │   └── scripts/       # run_build_rot.sh, run_sft.sh, run_regrpo.sh, run_inference.sh
 ├── samples/           # tiny validated fixtures so the smokes run with no data/API key
-├── docs/              # project page; auto-deployed by .github/workflows/pages.yml (Settings → Pages → Source: GitHub Actions)
+├── docs/              # project page (enable: Settings → Pages → Deploy from a branch → main, /docs)
 ├── requirements.txt
 ├── LICENSE
 └── README.md
