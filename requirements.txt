@@ -1,0 +1,9 @@
+# ReGRPO training reference (text path). Tested with Python 3.10-3.13.
+# These cover the RoT data engine, Stage-1 SFT, Stage-2 RL, and zero-verifier
+# inference smoke. The vision (Qwen2-VL) path needs the separate environment
+# described in the README (transformers==4.50.2 + qwen_vl_utils + deepspeed).
+torch>=2.2
+transformers>=4.45
+peft>=0.11
+pyyaml>=6.0
+openai>=1.30          # only for RoT data generation (teacher VLM)

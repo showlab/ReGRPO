@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!--
+  ReGRPO project page
+  Copyright (c) 2026 Binjie Zhang @ Show Lab — MIT License
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReGRPO: Reflection-Augmented Policy Optimization for Tool-Using Agents</title>
+<meta name="description" content="ReGRPO teaches a vision–language tool-using agent to diagnose and recover from its own failures, via a Structured Reflective Data Engine, reflection-augmented GRPO, and zero-verifier inference. ECCV 2026.">
+<meta property="og:title" content="ReGRPO: Reflection-Augmented Policy Optimization for Tool-Using Agents">
+<meta property="og:description" content="Reflection-augmented GRPO for tool-using vision–language agents. ECCV 2026.">
+<meta property="og:image" content="static/images/framework.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪞</text></svg>">
+<style>
+  :root{
+    --bg:#ffffff;
+    --fg:#1a1a2e;
+    --muted:#5b6472;
+    --line:#e6e8ef;
+    --soft:#f6f8fc;
+    --accent:#3b5bdb;
+    --accent-2:#7048e8;
+    --accent-soft:#eef1fe;
+    --max:980px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
+    color:var(--fg);
+    background:var(--bg);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;}
+
+  /* ---------- hero ---------- */
+  header.hero{
+    text-align:center;
+    padding:64px 0 26px;
+    background:
+      radial-gradient(1100px 380px at 50% -120px, var(--accent-soft), transparent 70%);
+    border-bottom:1px solid var(--line);
+  }
+  .venue{
+    display:inline-block;
+    font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent-2);
+    background:#fff;border:1px solid var(--line);
+    padding:5px 14px;border-radius:999px;margin-bottom:20px;
+    box-shadow:0 1px 2px rgba(20,20,60,.04);
+  }
+  h1.title{
+    font-size:clamp(1.7rem,3.6vw,2.7rem);
+    line-height:1.18;margin:.1em auto .15em;max-width:18ch;font-weight:800;
+    letter-spacing:-.01em;
+  }
+  h1.title .grad{
+    background:linear-gradient(92deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .subtitle{color:var(--muted);font-size:1.05rem;margin:0 auto 22px;max-width:60ch;}
+  .authors{font-size:1.12rem;margin:.4em 0 .1em;font-weight:600;}
+  .authors a{color:var(--fg);}
+  .affil{color:var(--muted);font-size:.97rem;margin-bottom:4px;}
+  .affil .corr{font-size:.86rem;}
+
+  /* ---------- link buttons ---------- */
+  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:26px 0 6px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 20px;border-radius:999px;font-weight:650;font-size:.97rem;
+    border:1px solid transparent;transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .btn:hover{text-decoration:none;transform:translateY(-2px);}
+  .btn-solid{background:linear-gradient(92deg,var(--accent),var(--accent-2));color:#fff;
+    box-shadow:0 6px 18px rgba(59,91,219,.28);}
+  .btn-ghost{background:#fff;color:var(--fg);border-color:var(--line);
+    box-shadow:0 1px 2px rgba(20,20,60,.05);}
+  .btn-soon{background:var(--soft);color:var(--muted);border-color:var(--line);cursor:not-allowed;}
+  .btn .ico{font-size:1.1em;line-height:1;}
+  .soon-tag{font-size:.72rem;font-weight:700;letter-spacing:.04em;color:#fff;
+    background:var(--accent-2);border-radius:6px;padding:1px 6px;margin-left:2px;}
+
+  /* ---------- sections ---------- */
+  section{padding:46px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{font-size:1.5rem;font-weight:800;margin:0 0 .2em;letter-spacing:-.01em;}
+  h2 .bar{color:var(--accent);}
+  .lead{color:var(--muted);margin-top:0;}
+  p{margin:.7em 0;}
+
+  figure{margin:26px 0 8px;text-align:center;}
+  figure img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:12px;
+    background:#fff;box-shadow:0 8px 30px rgba(20,20,60,.06);}
+  figcaption{color:var(--muted);font-size:.9rem;margin-top:12px;max-width:80ch;
+    margin-left:auto;margin-right:auto;text-align:left;}
+
+  .teaser{padding-top:34px;}
+
+  /* ---------- pillars ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+  .card{border:1px solid var(--line);border-radius:14px;padding:20px 18px;background:var(--soft);}
+  .card .num{display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:9px;font-weight:800;color:#fff;
+    background:linear-gradient(92deg,var(--accent),var(--accent-2));margin-bottom:10px;}
+  .card h3{margin:.1em 0 .3em;font-size:1.05rem;}
+  .card p{font-size:.93rem;color:var(--muted);margin:.2em 0 0;}
+
+  /* ---------- equation ---------- */
+  .eq{
+    background:var(--soft);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;margin:22px 0;text-align:center;font-size:1.12rem;overflow-x:auto;
+  }
+  .eq .sub{font-size:.72em;vertical-align:sub;}
+  .eq .sup{font-size:.72em;vertical-align:super;}
+  .eqnote{color:var(--muted);font-size:.9rem;text-align:center;margin-top:-6px;}
+
+  /* ---------- table ---------- */
+  .tablewrap{overflow-x:auto;margin-top:18px;}
+  table{border-collapse:collapse;width:100%;font-size:.98rem;}
+  th,td{padding:12px 14px;text-align:center;border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{background:var(--soft);font-weight:700;border-bottom:2px solid var(--line);}
+  tbody tr.best{background:var(--accent-soft);}
+  tbody tr.best td{font-weight:800;color:var(--accent);}
+  .tnote{color:var(--muted);font-size:.86rem;margin-top:10px;}
+
+  /* ---------- bibtex ---------- */
+  pre.bib{
+    background:#0f1226;color:#e7e9f5;border-radius:12px;padding:18px 20px;overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;line-height:1.55;
+  }
+  .copybtn{float:right;background:#2a2f55;color:#cdd2f0;border:none;border-radius:7px;
+    padding:5px 11px;font-size:.8rem;cursor:pointer;}
+  .copybtn:hover{background:#3a4080;}
+
+  footer{padding:30px 0 50px;text-align:center;color:var(--muted);font-size:.9rem;}
+
+  @media (max-width:720px){
+    .pillars{grid-template-columns:1fr;}
+    header.hero{padding:48px 0 22px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="venue">ECCV 2026</span>
+    <h1 class="title">ReGRPO: <span class="grad">Reflection-Augmented</span> Policy Optimization for Tool-Using Agents</h1>
+    <p class="subtitle">Teaching vision–language agents to <b>diagnose and recover</b> from their own tool-use failures — not just imitate successes.</p>
+
+    <div class="authors"><a href="#">Binjie Zhang</a> &nbsp;·&nbsp; <a href="#">Mike Zheng Shou</a><sup>&dagger;</sup></div>
+    <div class="affil">Show Lab, National University of Singapore</div>
+    <div class="affil corr"><sup>&dagger;</sup> Corresponding author</div>
+
+    <div class="links">
+      <span class="btn btn-soon" title="arXiv link coming soon"><span class="ico">📄</span> arXiv <span class="soon-tag">soon</span></span>
+      <a class="btn btn-solid" href="https://github.com/showlab/ReGRPO"><span class="ico">💻</span> Code</a>
+      <span class="btn btn-soon" title="RoT dataset coming soon"><span class="ico">🗂️</span> Data <span class="soon-tag">soon</span></span>
+    </div>
+  </div>
+</header>
+
+<section class="teaser">
+  <div class="wrap">
+    <figure>
+      <img src="static/images/framework.png" alt="Overview of the ReGRPO framework: Structured Reflective Data Engine, ReGRPO training, and zero-verifier inference.">
+      <figcaption><b>Overview of ReGRPO.</b> (1) A <b>Structured Reflective Data Engine</b> synthesizes a near-miss failure from a ground-truth action, executes it to obtain a grounded failure observation, and uses a teacher VLM to annotate a structured <code>(ErrorType, Evidence, FixPlan)</code> reflection paired with the corrected action. (2) <b>ReGRPO training</b> samples groups of local trajectories — one-shot successes and reflection-based recoveries <code>a⁰→o⁰→z→a¹→o¹</code> — and uses group-relative advantages to optimize <em>both</em> reflection and correction tokens. (3) <b>Zero-verifier inference</b> opens a local reflection–correction block only when a deterministic trigger fires.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="abstract">
+  <div class="wrap">
+    <h2><span class="bar">|</span> Abstract</h2>
+    <p>Tool-augmented vision–language models (VLMs) can solve multimodal, multi-step tasks by calling external tools, yet they remain fragile in practice. Existing training has two common gaps: supervised fine-tuning (SFT) is built mostly on successful trajectories and offers little signal for recovery after tool failures, while sparse trajectory-level RL rewards provide limited guidance on <em>which</em> step failed and <em>how</em> to repair it.</p>
+    <p>We introduce <b>ReGRPO</b> (Reflection-augmented Group Relative Policy Optimization), a framework that learns reflection-guided correction in tool-using agents. ReGRPO starts with a structured reflective data engine: we execute near-miss actions to collect grounded failure observations, then build Reflection-of-Thought triplets <code>(ErrorType, Evidence, FixPlan)</code> paired with corrected actions for warm-start SFT. We then optimize reflection tokens and corrective actions jointly within local trajectories using group-relative advantages, and include a reflection-cost term to reduce unnecessary reflection. Experiments on GTA and GAIA show that, under the same backbone and tool suite, ReGRPO consistently outperforms strong open-source baselines and achieves the best results among the compared open-source controllers.</p>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <h2><span class="bar">|</span> Approach</h2>
+    <p class="lead">Three components turn failures into a learnable recovery skill.</p>
+
+    <div class="pillars">
+      <div class="card">
+        <span class="num">1</span>
+        <h3>Reflective Data Engine</h3>
+        <p>Perturb a ground-truth tool call into a realistic near-miss, execute it for a grounded failure observation, and annotate a structured <code>(ErrorType, Evidence, FixPlan)</code> reflection + corrected action — explicit Error → Reflection → Correction supervision.</p>
+      </div>
+      <div class="card">
+        <span class="num">2</span>
+        <h3>Reflection-Augmented GRPO</h3>
+        <p>Reflection tokens become part of the optimized trajectory, so group-relative advantages directly scale gradients on diagnostic reflection <em>and</em> corrective actions. A reflection-cost term keeps reflection brief.</p>
+      </div>
+      <div class="card">
+        <span class="num">3</span>
+        <h3>Zero-Verifier Inference</h3>
+        <p>A deterministic trigger opens at most one local reflection–correction block per step, from hard-failure signals plus a lightweight confidence proxy — no external verifier calls at deployment.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px;">Reflection-aware reward</h3>
+    <div class="eq">
+      R(&tau;) = &lambda;<span class="sub">exec</span> &middot; <b>1</b>{success} &minus; &eta; &middot; C(&tau;) + &lambda;<span class="sub">val</span> &middot; V(x, &tau;)
+    </div>
+    <p class="eqnote">The first two terms form a complete <b>verifier-free</b> objective (default <code>&lambda;<sub>val</sub>=0</code>). <code>C(&tau;)</code> penalizes reflection length (0 for one-shot success); <code>V</code> is an optional, training-only teacher verifier. Group advantage: <code>A<sub>i</sub><sup>(k)</sup> = R(&tau;<sub>i</sub><sup>(k)</sup>) &minus; R&#772;<sub>i</sub></code>.</p>
+
+    <figure>
+      <img src="static/images/rot_pipeline.png" alt="The Reflection-of-Thought data construction pipeline.">
+      <figcaption><b>Reflection-of-Thought (RoT) data pipeline.</b> Each clean trajectory step is perturbed into a near-miss action, executed to obtain a grounded failure observation, and paired with a structured reflection triplet and the corrected action. Strict schema, evidence-grounding, and label-leak gates keep the corpus well-formed for vision SFT.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="static/images/regrpo_comparison.png" alt="Comparison of PPO, DPO, GRPO, and ReGRPO.">
+      <figcaption><b>ReGRPO vs. PPO / DPO / GRPO.</b> PPO and DPO optimize actions or preferences without treating reflection as a decision variable; GRPO reduces variance via group-relative rewards; ReGRPO further includes reflection in the optimized trajectory, providing stronger recovery-oriented supervision for failed steps.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <h2><span class="bar">|</span> Results</h2>
+    <p class="lead">Same Qwen2-VL-7B backbone and tool suite for every method; single-path, zero-verifier inference. AnsAcc = answer accuracy.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Method (controller)</th><th>GTA AnsAcc</th><th>GAIA AnsAcc</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MAT-Agent / T3-Agent (MAT-Qwen2-VL-7B)</td><td>53.85</td><td>16.97</td></tr>
+          <tr><td>SPORT (Tuned-Qwen2-VL-7B)</td><td>60.26</td><td>20.61</td></tr>
+          <tr class="best"><td>ReGRPO (default, &lambda;<sub>val</sub> = 0)</td><td>67.66</td><td>23.35</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">The verifier-free default is already the strongest among the compared open-source controllers (+7.40 GTA / +2.74 GAIA over SPORT). An optional deterministic verifier reward adds a further +0.83 / +0.66.</p>
+  </div>
+</section>
+
+<section id="bibtex">
+  <div class="wrap">
+    <h2><span class="bar">|</span> BibTeX</h2>
+    <pre class="bib" id="bib"><button class="copybtn" onclick="copyBib()">copy</button>@inproceedings{zhang2026regrpo,
+  title     = {ReGRPO: Reflection-Augmented Group Relative Policy Optimization for Tool-Using Agents},
+  author    = {Zhang, Binjie and Shou, Mike Zheng},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</pre>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Code and Reflection-of-Thought data: <a href="https://github.com/showlab/ReGRPO">github.com/showlab/ReGRPO</a></p>
+    <p>© 2026 Binjie Zhang @ Show Lab · Released under the MIT License · Builds on <a href="https://mat-agent.github.io/">MAT-Agent</a>.</p>
+  </div>
+</footer>
+
+<script>
+  function copyBib(){
+    var el = document.getElementById('bib');
+    var text = el.innerText.replace(/^copy\s*/,'');
+    navigator.clipboard.writeText(text.trim()).then(function(){
+      var b = el.querySelector('.copybtn');
+      var old = b.innerText; b.innerText = 'copied!';
+      setTimeout(function(){ b.innerText = old; }, 1400);
+    });
+  }
+</script>
+</body>
+</html>

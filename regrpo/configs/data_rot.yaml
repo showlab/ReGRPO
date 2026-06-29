@@ -1,0 +1,27 @@
+# RoT (Reflection-of-Thought) data-generation contract.
+# Generates one RoT example per sampled trajectory step from a clean MAT-Agent
+# / MM-Traj corpus, using a teacher VLM (GPT-4o by default).
+num_trajectories: 2000      # set to null or "all" to use every trajectory
+samples_per_traj: 1
+seed: 13
+
+# Target perturbation -> ErrorType distribution (matches the paper).
+error_type_distribution:
+  GroundingDrift: 0.294
+  ToolMismatch: 0.246
+  ArgInvalid: 0.308
+  InfoInsufficient: 0.152
+
+concurrency: 8
+max_retries: 3
+
+input_path: dataset/mat_train.json          # source clean trajectories (MM-Traj)
+output_path: dataset/rot_train.json          # generated RoT corpus
+checkpoint_path: dataset/.rot_ckpt.jsonl     # JSONL checkpoint for resume
+
+# Teacher VLM for reflection annotation. Credentials are read from the
+# environment (OPENAI_API_KEY / OPENAI_BASE_URL); only the model name lives here.
+# Any OpenAI-compatible chat model works; the paper uses GPT-4o.
+teacher:
+  model: gpt-4o
+  # env_path: .env                           # optional KEY=VALUE file with OPENAI_* keys

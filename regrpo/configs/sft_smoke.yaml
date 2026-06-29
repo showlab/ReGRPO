@@ -1,0 +1,19 @@
+# CPU smoke for Stage-1 RoT-SFT. Uses the bundled sample fixtures so it runs
+# out of the box (no dataset download, no API key).
+model_name: Qwen/Qwen2.5-0.5B-Instruct
+clean_path: samples/mat_train.sample.json
+rot_path: samples/rot_train.sample.json
+clean_ratio: 0.5
+max_len: 2048
+lr: 1.0e-4
+use_lora: true
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.05
+max_steps: 2
+batch_size: 1
+seed: 13
+device: cpu
+output_dir: .cache/sft_smoke
+max_clean: 20
+max_rot: 20

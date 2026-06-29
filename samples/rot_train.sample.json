@@ -1,0 +1,296 @@
+[
+  {
+    "id": "sample0001_rot",
+    "image": {},
+    "answer": "42.50",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Read the total amount printed on the attached receipt file invoice.pdf."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will read the wrong file.\n\nCode:\n```py\ninspect_file_as_text(\"reciept.pdf\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nError: File not found: reciept.pdf"
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: ArgInvalid\n- Evidence: The observation says 'File not found: reciept.pdf', so the file path argument was misspelled.\n- FixPlan: Use the correct file path invoice.pdf instead of the misspelled reciept.pdf.\nThought: I will read the correct file.\n\nCode:\n```py\ninspect_file_as_text(\"invoice.pdf\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\ninvoice total: 42.50"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"42.50\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0001",
+      "step_index": 0,
+      "error_type": "ArgInvalid",
+      "failed_action": "Thought: I will read the wrong file.\n\nCode:\n```py\ninspect_file_as_text(\"reciept.pdf\")\n```",
+      "failed_observation": "Error: File not found: reciept.pdf",
+      "reflection": {
+        "error_type": "ArgInvalid",
+        "evidence": "The observation says 'File not found: reciept.pdf', so the file path argument was misspelled.",
+        "fix_plan": "Use the correct file path invoice.pdf instead of the misspelled reciept.pdf."
+      },
+      "corrected_action": "Thought: I will read the correct file.\n\nCode:\n```py\ninspect_file_as_text(\"invoice.pdf\")\n```",
+      "final_answer": "42.50"
+    }
+  },
+  {
+    "id": "sample0002_rot",
+    "image": {},
+    "answer": "3",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: How many people are visible in the photo image1.jpg?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will search the web for the count.\n\nCode:\n```py\nask_search_agent(\"how many people in the photo\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nNo results found for the query."
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: ToolMismatch\n- Evidence: The search returned 'No results found'; web search cannot count people inside a local image.\n- FixPlan: Switch to a visual tool that inspects the image, such as objectlocation on persons.\nThought: I will localize people in the image.\n\nCode:\n```py\nobjectlocation(\"person\", \"image1.jpg\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\n[[120,40,210,300],[230,55,330,310],[340,60,430,300]]"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"3\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0002",
+      "step_index": 0,
+      "error_type": "ToolMismatch",
+      "failed_action": "Thought: I will search the web for the count.\n\nCode:\n```py\nask_search_agent(\"how many people in the photo\")\n```",
+      "failed_observation": "No results found for the query.",
+      "reflection": {
+        "error_type": "ToolMismatch",
+        "evidence": "The search returned 'No results found'; web search cannot count people inside a local image.",
+        "fix_plan": "Switch to a visual tool that inspects the image, such as objectlocation on persons."
+      },
+      "corrected_action": "Thought: I will localize people in the image.\n\nCode:\n```py\nobjectlocation(\"person\", \"image1.jpg\")\n```",
+      "final_answer": "3"
+    }
+  },
+  {
+    "id": "sample0003_rot",
+    "image": {},
+    "answer": "EXIT",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: What text is written on the small sign in the top-left corner of scene.jpg?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will OCR the center crop.\n\nCode:\n```py\nvisualizer(\"read the sign\", \"scene.jpg\", bbox=[400,300,520,360])\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nThe cropped region appears to show empty pavement; no text is present."
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: GroundingDrift\n- Evidence: The crop shows 'empty pavement' with no text, so the bounding box was shifted off the top-left sign.\n- FixPlan: Re-ground the bounding box to the top-left corner of the image before reading the sign.\nThought: I will OCR the top-left sign region.\n\nCode:\n```py\nvisualizer(\"read the sign\", \"scene.jpg\", bbox=[10,8,150,70])\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nThe sign reads: EXIT"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"EXIT\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0003",
+      "step_index": 0,
+      "error_type": "GroundingDrift",
+      "failed_action": "Thought: I will OCR the center crop.\n\nCode:\n```py\nvisualizer(\"read the sign\", \"scene.jpg\", bbox=[400,300,520,360])\n```",
+      "failed_observation": "The cropped region appears to show empty pavement; no text is present.",
+      "reflection": {
+        "error_type": "GroundingDrift",
+        "evidence": "The crop shows 'empty pavement' with no text, so the bounding box was shifted off the top-left sign.",
+        "fix_plan": "Re-ground the bounding box to the top-left corner of the image before reading the sign."
+      },
+      "corrected_action": "Thought: I will OCR the top-left sign region.\n\nCode:\n```py\nvisualizer(\"read the sign\", \"scene.jpg\", bbox=[10,8,150,70])\n```",
+      "final_answer": "EXIT"
+    }
+  },
+  {
+    "id": "sample0004_rot",
+    "image": {},
+    "answer": "456692",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Find the population of the capital city mentioned in notes.txt."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will search without naming the city.\n\nCode:\n```py\nask_search_agent(\"population\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nAmbiguous query: returned 1,000+ unrelated population pages."
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: InfoInsufficient\n- Evidence: The query 'population' was 'Ambiguous' and returned unrelated pages because the city name was dropped.\n- FixPlan: Include the specific capital city name from notes.txt in the search query.\nThought: I will search with the specific city name.\n\nCode:\n```py\nask_search_agent(\"population of Canberra 2024\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nCanberra population (2024 est.): 456,692"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"456692\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0004",
+      "step_index": 0,
+      "error_type": "InfoInsufficient",
+      "failed_action": "Thought: I will search without naming the city.\n\nCode:\n```py\nask_search_agent(\"population\")\n```",
+      "failed_observation": "Ambiguous query: returned 1,000+ unrelated population pages.",
+      "reflection": {
+        "error_type": "InfoInsufficient",
+        "evidence": "The query 'population' was 'Ambiguous' and returned unrelated pages because the city name was dropped.",
+        "fix_plan": "Include the specific capital city name from notes.txt in the search query."
+      },
+      "corrected_action": "Thought: I will search with the specific city name.\n\nCode:\n```py\nask_search_agent(\"population of Canberra 2024\")\n```",
+      "final_answer": "456692"
+    }
+  },
+  {
+    "id": "sample0005_rot",
+    "image": {},
+    "answer": "18.4M",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Extract the value in the 'Revenue' column, second row of table.csv."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will read the wrong column index.\n\nCode:\n```py\ninspect_file_as_text(\"table.csv\", column=0, row=1)\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nReturned value '2023' from the Year column, not a revenue figure."
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: ArgInvalid\n- Evidence: The tool returned '2023' from the Year column, so the column index pointed at Year instead of Revenue.\n- FixPlan: Select the Revenue column index for the second data row.\nThought: I will read the Revenue column.\n\nCode:\n```py\ninspect_file_as_text(\"table.csv\", column=3, row=1)\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nRevenue (row 2): 18.4M"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"18.4M\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0005",
+      "step_index": 0,
+      "error_type": "ArgInvalid",
+      "failed_action": "Thought: I will read the wrong column index.\n\nCode:\n```py\ninspect_file_as_text(\"table.csv\", column=0, row=1)\n```",
+      "failed_observation": "Returned value '2023' from the Year column, not a revenue figure.",
+      "reflection": {
+        "error_type": "ArgInvalid",
+        "evidence": "The tool returned '2023' from the Year column, so the column index pointed at Year instead of Revenue.",
+        "fix_plan": "Select the Revenue column index for the second data row."
+      },
+      "corrected_action": "Thought: I will read the Revenue column.\n\nCode:\n```py\ninspect_file_as_text(\"table.csv\", column=3, row=1)\n```",
+      "final_answer": "18.4M"
+    }
+  },
+  {
+    "id": "sample0006_rot",
+    "image": {},
+    "answer": "yes",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Detect whether there is a dog in pets.jpg and report yes or no."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I will crop a tiny corner region.\n\nCode:\n```py\nobjectlocation(\"dog\", \"pets.jpg\", region=[0,0,20,20])\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\n[] (no objects detected in the 20x20 region)"
+      },
+      {
+        "role": "assistant",
+        "content": "Reflection:\n- ErrorType: GroundingDrift\n- Evidence: The detector returned '[]' for the 20x20 region, so the search region was far too small and off-target.\n- FixPlan: Run detection over the full image instead of a tiny corner region.\nThought: I will detect over the whole image.\n\nCode:\n```py\nobjectlocation(\"dog\", \"pets.jpg\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\n[[88,120,300,410]]"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: report the result\n\nCode:\n```py\nfinal_answer(\"yes\")\n```"
+      }
+    ],
+    "rot_meta": {
+      "src_id": "sample0006",
+      "step_index": 0,
+      "error_type": "GroundingDrift",
+      "failed_action": "Thought: I will crop a tiny corner region.\n\nCode:\n```py\nobjectlocation(\"dog\", \"pets.jpg\", region=[0,0,20,20])\n```",
+      "failed_observation": "[] (no objects detected in the 20x20 region)",
+      "reflection": {
+        "error_type": "GroundingDrift",
+        "evidence": "The detector returned '[]' for the 20x20 region, so the search region was far too small and off-target.",
+        "fix_plan": "Run detection over the full image instead of a tiny corner region."
+      },
+      "corrected_action": "Thought: I will detect over the whole image.\n\nCode:\n```py\nobjectlocation(\"dog\", \"pets.jpg\")\n```",
+      "final_answer": "yes"
+    }
+  }
+]

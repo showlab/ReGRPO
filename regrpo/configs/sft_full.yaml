@@ -1,0 +1,17 @@
+# Full Stage-1 RoT-SFT config (text reference path, single GPU).
+# Override model_name with any HF id or local path (e.g. Qwen/Qwen2.5-7B-Instruct).
+model_name: Qwen/Qwen2.5-0.5B-Instruct
+clean_path: dataset/mat_train.json
+rot_path: dataset/rot_train.json
+clean_ratio: 0.5
+max_len: 4096
+lr: 2.0e-5
+use_lora: true
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+max_steps: 2000
+batch_size: 1
+seed: 13
+device: cuda
+output_dir: ./checkpoints/regrpo_text_sft

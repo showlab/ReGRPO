@@ -1,0 +1,20 @@
+# Full Stage-2 ReGRPO RL config (text reference path, single GPU).
+# Override model_name with any HF id or local path (e.g. Qwen/Qwen2.5-7B-Instruct).
+model_name: Qwen/Qwen2.5-0.5B-Instruct
+group_size: 5
+lambda_exec: 1.0
+eta: 0.1
+# Verifier-free reference mode; the paper's reported setting uses lambda_val=0.3.
+lambda_val: 0.0
+beta: 0.04
+lr: 5.0e-6
+use_lora: true
+# Warm-start RL from the Stage-1 SFT adapter (paper two-stage recipe):
+# init_adapter: ./checkpoints/regrpo_text_sft
+max_steps: 1000
+device: cuda
+# Sequence budget; keeps the agent context plus the reflection/action tail.
+max_len: 4096
+data: dataset/rot_train.json
+seed: 13
+output_dir: ./checkpoints/regrpo_text_rl

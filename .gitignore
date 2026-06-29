@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Local data, checkpoints, caches
+dataset/
+checkpoints/
+.cache/
+*.db
+
+# RoT generation checkpoint / secrets
+.rot_ckpt.jsonl
+.env
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,24 @@
+# Stage-2 ReGRPO RL stability recipe (vision path, Qwen2-VL-7B).
+# Bounded, length-normalized RL on top of the Stage-1 vision SFT adapter.
+# Set model_name / init_adapter to your local Qwen2-VL-7B and SFT-adapter paths.
+model_name: Qwen/Qwen2-VL-7B-Instruct
+group_size: 5
+lambda_exec: 1.0
+eta: 0.1
+lambda_val: 0.0
+beta: 0.3
+lr: 1.0e-6
+use_lora: true
+init_adapter: ./checkpoints/regrpo_vision_sft
+length_normalize: true
+advantage_estimator: group_mean
+advantage_normalize: true
+advantage_clip: 1.0
+grad_clip_norm: 1.0
+warmup_steps: 10
+max_steps: 250
+max_len: 2048
+device: cuda
+data: dataset/rot_train.json
+seed: 13
+output_dir: ./checkpoints/regrpo_vision_rl

@@ -1,0 +1,164 @@
+[
+  {
+    "id": "clean0001",
+    "image": {},
+    "answer": "Annual Energy Review 2024",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Read the title printed on report.pdf."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Read the file.\n\nCode:\n```py\ninspect_file_as_text(\"report.pdf\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nTitle: Annual Energy Review 2024"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"Annual Energy Review 2024\")\n```"
+      }
+    ]
+  },
+  {
+    "id": "clean0002",
+    "image": {},
+    "answer": "2",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: How many cars are in street.jpg?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Localize cars.\n\nCode:\n```py\nobjectlocation(\"car\", \"street.jpg\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\n[[10,20,90,80],[120,25,200,85]]"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"2\")\n```"
+      }
+    ]
+  },
+  {
+    "id": "clean0003",
+    "image": {},
+    "answer": "Paris",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: What is the capital of France according to the web?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Search the web.\n\nCode:\n```py\nask_search_agent(\"capital of France\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nParis is the capital of France."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"Paris\")\n```"
+      }
+    ]
+  },
+  {
+    "id": "clean0004",
+    "image": {},
+    "answer": "73",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Read the value in cell B2 of sheet.csv."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Inspect the cell.\n\nCode:\n```py\ninspect_file_as_text(\"sheet.csv\", column=1, row=1)\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nValue at B2: 73"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"73\")\n```"
+      }
+    ]
+  },
+  {
+    "id": "clean0005",
+    "image": {},
+    "answer": "yes",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Is there a cat in pets2.jpg?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Detect a cat.\n\nCode:\n```py\nobjectlocation(\"cat\", \"pets2.jpg\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\n[[40,60,180,220]]"
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"yes\")\n```"
+      }
+    ]
+  },
+  {
+    "id": "clean0006",
+    "image": {},
+    "answer": "Sunset over the harbor.",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "You are a tool-using agent. Each step write a Thought then a Code block calling one tool."
+      },
+      {
+        "role": "user",
+        "content": "Task: Summarize the one-line caption in note.txt."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: Read the note.\n\nCode:\n```py\ninspect_file_as_text(\"note.txt\")\n```"
+      },
+      {
+        "role": "user",
+        "content": "[OUTPUT OF STEP 0] -> Observation:\nCaption: Sunset over the harbor."
+      },
+      {
+        "role": "assistant",
+        "content": "Thought: I can now answer.\n\nCode:\n```py\nfinal_answer(\"Sunset over the harbor.\")\n```"
+      }
+    ]
+  }
+]

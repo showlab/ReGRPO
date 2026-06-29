@@ -1,0 +1,20 @@
+# CPU smoke for Stage-2 ReGRPO RL on the bundled sample fixtures (runs out of
+# the box). group_size is the fixed offline contrastive group (5 members).
+model_name: Qwen/Qwen2.5-0.5B-Instruct
+group_size: 5
+lambda_exec: 1.0
+eta: 0.1
+# Verifier-free reference mode; paper default uses lambda_val=0.3.
+lambda_val: 0.0
+beta: 0.04
+lr: 1.0e-6
+use_lora: true
+max_steps: 1
+device: cpu
+# Left-truncate long MAT system prompts to keep CPU smoke forwards tractable;
+# the scored reflection+action spans (at the sequence tail) are preserved.
+# 512 keeps a single CPU update well under a few minutes (attention is O(n^2)).
+max_len: 512
+data: samples/rot_train.sample.json
+seed: 13
+output_dir: .cache/regrpo_rl_smoke
