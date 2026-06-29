@@ -34,6 +34,10 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          # Create/enable the Pages site from this workflow so no manual
+          # Settings -> Pages click is needed (requires the pages: write token).
+          enablement: true
 
       - name: Upload docs/ artifact
         uses: actions/upload-pages-artifact@v3
